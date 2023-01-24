@@ -18,14 +18,22 @@ module.exports = () => {
       path: path.resolve(__dirname, 'dist'),
     },
     plugins: [
+      new HtmlWebpackPlugin({
+        template: './index.html',
+        title: 'Webpack Plugin',
+      }),
       new GenerateSW(),
       new WebpackPwaManifest({
         name: 'jate',
         short_name: 'jate',
         description: 'unknown',
         start_url: './',
-        puiblicPath: './',
-      })
+        publicPath: './',
+      }),
+      new InjectManifest({
+        swSrc: './src/sw.js',
+        swDest: 'service-worker.js'
+      }),
     ],
 
     module: {
